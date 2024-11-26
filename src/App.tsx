@@ -1,23 +1,24 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import AuthLayout from "./layouts/AuthLayout";
-import NotFound from "./components/NotFound";
-import LoginRegister from "./modules/auth/LoginRegister/LoginRegister";
-import ForgotPassword from "./modules/auth/ForgotPassword/ForgotPassword";
-import ResetPassword from "./modules/auth/ResetPassword/ResetPassword";
-import ChangePassword from "./modules/auth/ChangePassword/ChangePassword";
-import MasterLayout from "./layouts/MasterLayout";
-import Homepage from "./modules/Dashboard/HomePage";
-import Quizzes from "./modules/instructor/Quizzes/Quizzes";
-import QuestionBank from "./modules/instructor/Question Bank/QuestionBank";
-import ListGroups from "./modules/instructor/ListGroups/ListGroups";
-import Results from "./modules/instructor/Results/Results";
-import ResultDetails from "./modules/instructor/Results/ResultDetails";
-import ViewQuiz from "./modules/instructor/Quizzes/ViewQuiz";
-import Students from "./modules/instructor/Students/Students";
-import StudentQuiz from "./modules/Students/StudentQuiz/StudentQuiz";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "./store/store";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import NotFound from "./components/NotFound";
 import NotFoundComponents from "./components/NotFoundComponents";
+import AuthLayout from "./layouts/AuthLayout";
+import MasterLayout from "./layouts/MasterLayout";
+import ChangePassword from "./modules/auth/ChangePassword/ChangePassword";
+import ForgotPassword from "./modules/auth/ForgotPassword/ForgotPassword";
+import LoginRegister from "./modules/auth/LoginRegister/LoginRegister";
+import ResetPassword from "./modules/auth/ResetPassword/ResetPassword";
+import Homepage from "./modules/Dashboard/HomePage";
+import ListGroups from "./modules/instructor/ListGroups/ListGroups";
+import QuestionBank from "./modules/instructor/Question Bank/QuestionBank";
+import Quizzes from "./modules/instructor/Quizzes/Quizzes";
+import ViewQuiz from "./modules/instructor/Quizzes/ViewQuiz";
+import ResultDetails from "./modules/instructor/Results/ResultDetails";
+import Results from "./modules/instructor/Results/Results";
+import Students from "./modules/instructor/Students/Students";
+import StudentesQuestions from "./modules/Students/StudentesQuestions/StudentesQuestions";
+import StudentQuiz from "./modules/Students/StudentQuiz/StudentQuiz";
+import { RootState } from "./store/store";
 function App() {
   const dispatch = useDispatch();
   const profile = useSelector((state: RootState) => state.auth.profile);
@@ -89,6 +90,11 @@ function App() {
         {
           path: "student-quiz",
           element: profile?.role === "Student" ? <StudentQuiz/> : <NotFoundComponents />,
+        },
+
+        {
+          path: "student-question",
+          element: profile?.role === "Student" ? <StudentesQuestions/> : <NotFoundComponents />,
         },
 
         { path: "list-groups",
