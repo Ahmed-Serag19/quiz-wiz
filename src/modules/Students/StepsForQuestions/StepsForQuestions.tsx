@@ -1,3 +1,6 @@
+import { StudentQuiz_Url } from "@/constants/End-points";
+import axios from "axios";
+import { useEffect } from "react";
 import FormWizard from "react-form-wizard-component";
 import "react-form-wizard-component/dist/style.css";
 
@@ -18,6 +21,26 @@ export default function StepsForQuestions() {
     console.log("prevIndex", prevIndex);
     console.log("nextIndex", nextIndex);
   };
+
+  const getAllQuizzes = () => {
+    try {
+      const response = axios.get(StudentQuiz_Url.getUpcomingQuizzes, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      console.log(response);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllQuizzes()
+  }, [])
+  
+
   return (
     <>
       <FormWizard onComplete={handleComplete} onTabChange={tabChanged}>

@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BiSolidAlarmAdd } from "react-icons/bi";
-
-import { RiSafe2Line } from "react-icons/ri";
-import { Link } from "react-router-dom";
-import { ImCheckmark, ImCross } from "react-icons/im";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-import StudentQuiz from "./StudentQuiz";
 import { StudentQuiz_Url } from "@/constants/End-points";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import { ImCheckmark, ImCross } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 export default function ModelJoinQuiz() {
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+    setIsModalOpen((isModalOpen) => !isModalOpen);
   };
   let {
     register,
@@ -25,9 +25,11 @@ export default function ModelJoinQuiz() {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
-
-      console.log(response.data);
-    } catch (error) {}
+      toast.success(response.data.message);
+      navigate("student-quiz");
+    } catch (error) {
+      toast.error("An unexpected error occurred");
+    }
   };
   return (
     <div>
@@ -62,7 +64,11 @@ export default function ModelJoinQuiz() {
               </div>
 
               <div className=" flex justify-center  ">
-                <button className="btn  border rounded-tl mt-2" type="submit">
+                <button
+                  onClick={onSubmit}
+                  className="btn  border rounded-tl mt-2"
+                  type="submit"
+                >
                   <ImCheckmark className="text-[1.5rem] m-5" />
                 </button>
 

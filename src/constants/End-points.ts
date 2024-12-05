@@ -58,4 +58,7 @@ export const Results_URls = {
 const Base_StudentQuiz = `${Base_Url}/quiz`;
 export const StudentQuiz_Url = {
   joinQuiz: `${Base_StudentQuiz}/join`,
+  getUpcomingQuizzes: `${Base_Quizes}/incomming`, // GET
+  setCompletedQuizzes: `${Base_Quizes}/completed`,
+  setFinishQuiz:(id: string) => `${Base_Quizes}/${id}`,
 };
